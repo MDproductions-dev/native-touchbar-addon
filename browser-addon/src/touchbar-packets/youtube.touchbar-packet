@@ -91,12 +91,24 @@ function setupGeneralNavigation() {
 }
 
 function formatTimestamp(time) {
-  let minutes = Math.floor(time / 60)
-  let seconds = Math.floor(time - 60 * minutes)
+  if (time / 60 > 59){
+    let hours = Math.floor(time / 3600);
+    let minutes = Math.floor(time % 3600 / 60);
+    let seconds = Math.floor(time % 3600 % 60);
+    
+    if (minutes < 10) minutes = '0' + minutes
+    if (seconds < 10) seconds = '0' + seconds
 
-  if (seconds < 10) seconds = '0' + seconds
+    return `${hours}:${minutes}:${seconds}`
+  }
+  else{
+    let minutes = Math.floor(time % 3600 / 60);
+    let seconds = Math.floor(time % 3600 % 60);
 
-  return `${minutes}:${seconds}`
+    if (seconds < 10) seconds = '0' + seconds
+
+    return `${minutes}:${seconds}`
+  }
 }
 
 function setupVideoPage() {
